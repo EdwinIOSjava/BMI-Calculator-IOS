@@ -8,7 +8,7 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
     @IBOutlet weak var weightLabel: UILabel!
     @IBOutlet weak var heightLabel: UILabel!
     @IBOutlet weak var totalLabel: UILabel!
@@ -18,14 +18,14 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
-
-   
+    
+    
     
     
     @IBAction func stepperButton(_ sender: UIStepper) {
         weightLabel.text = String(Int(sender.value))
         
-         weight = sender.value
+        weight = Int(sender.value)
         
     }
     
@@ -33,18 +33,22 @@ class ViewController: UIViewController {
         
         heightLabel.text = (" \(Int(sender.value)) cm")
         
-         height = sender.value
+        height = Int(sender.value)
     }
     
-    @IBAction func buttonCalculate(_ sender: Any) {
+    @IBAction func buttonCalculate(_ sender: UIButton) {
         
-        var total :  calcularIMC ( Float(weight):<#T##Double#>, Float(height) : <#T##Double#>)
+        let imc = calcularIMC(weight: weight, heightCm: height)
+        
+        totalLabel.text = String(format: "IMC: %.2f", imc)
+    }
 
-            totalLabel.text=total
-        }
+    func calcularIMC(weight: Int, heightCm: Int) -> Float {
+        
+        let heightM = Float(heightCm) / 100.0
+        return Float(weight) / (heightM * heightM)
+    }
+
     
-    func calcularIMC(pesoKg: Double, alturaM: Double) -> Double {
-            return Float(pesoKg / (alturaM * alturaM)
-        }
 }
 
